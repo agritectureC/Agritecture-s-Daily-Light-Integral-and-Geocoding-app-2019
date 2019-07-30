@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>My Geocode App</title>
+</head>
+<body>
+  <body>
+
+    <div class="container" >
+      <div class="panel" id = "calculator">
+
+      <h2 class="text-center">Daily Light Integral & Geolocation calculator</h2>
+      <br>
+
+      <fieldset>
+
+
+      <form id="location-form">
+        <h5> Please enter your city and country:</h5>
+
+        <input type="text" id="location-input" placeholder="New York USA" class="form-control form-control-lg">
+  <br>
+          <h5> Please select the type of the cover:</h5>
+
+     <select id="opList"  onChange="handleClick()" >
+       <option value = ""> </option>
+      <option value = "PPG1">Plain Type1 Plexiglass</option>
+      <option value = "PPG2">Plain Type2 Plexiglass</option>
+      <option value = "PGA1">Type1 Plexiglas with Agril sheet</option>
+      <option value = "PGA2">Type2 Plexiglas with Agril sheet</option>
+      <option value = "PGBA1">Type1 Plexiglas with Blocked Air</option>
+      <option value = "PGBA2">Type2 Plexiglas with Blocked Air</option>
+      <option value = "PGW1">Type1 Plexiglas with water flow</option>
+      <option value = "PGW2">Type2 Plexiglas with water flow</option>
+      <option value = "PPC">Plain polycarbonate</option>
+      <option value = "PCA">Polycarbonate with Agril net</option>
+      <option value = "PCP">Polycarbonate with Polyethylene sheet</option>
+      <option value = "PY1">Single layer of polyethylen</option>
+      <option value = "PY2">Double layers of polyethylene</option>
+      <option value = "PYA">Polyethylene with Agril net</option>
+      <option value = "FG1">Single layer of fiberglass</option>
+      <option value = "FG2A">Double layer of fiberglass (parallel)</option>
+      <option value = "FG2B">Double layer of fiberglass (offset)</option>
+      <option value = "FG1BA">Fiberglass 1 with blocked air</option>
+      <option value = "FG2BA">Fiberglass 2 with blocked air</option>
+      <option value = "IMA">Type 2 Impact Modified Acryllic</option>
+      <option value = "TP">Type 2 Polycarbonate (light)</option>
+      <option value = "POL">Type 2 Polycarbonate (mult-wall)</option>
+      <option value = "GS">Type 3 (rigid glass) single</option>
+      <option value = "GD">Type 3 (rigid glass) double</option>
+
+     </select>
+     <br>
+     <br>
+    <div id="dli" class="text-center" >Daily Light Integral: </div>
+
+    <div id="latitude" class="text-center" >Latitude of Your location: </div>
+    <div id="longitude"  class="text-center" >Longitude of Your location: </div>
+   </fieldset>
+
+
+      <br>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+     </form>
+
+
+
+
+    <div style="position: absolute; top: 0; left: 0px; width: 250px; text-align:left;">
+    Go to: <li> <a href="https://www.agritecture.com" class ="link"> Agritecture website </a></li>
+    <li> <a href="http://www.fao.org/3/x0490e/x0490e07.htm#radiation" class ="link"> Theory behind calculations </a></li>
+    <li> <a href="https://github.com/almazhanabdukhat" class ="link"> Source on github: almazhanabdukhat </a></li>
+  </div>
+
+
+
+
+
+
+    <img src="agritecture-logo.png" alt="agritecture" />
+
+      <p id="link">  </p>
+
+      <script src="main.js"></script>
+
+</body>
+</html>
