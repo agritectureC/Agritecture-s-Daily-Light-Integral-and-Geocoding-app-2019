@@ -109,9 +109,9 @@ params:{
 
 address:location,
 
-//Change the API key
+//SET THE API KEY
 
-key:'AIzaSyAJ5rt4_6lwR_0fkENYk8i4QF83Z0NJNb4'
+key:' '
         }
       })
       .then(function(response){
