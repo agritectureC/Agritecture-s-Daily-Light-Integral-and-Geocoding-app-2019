@@ -1,4 +1,4 @@
-# DailyLightIntegral
+# Daily Light Integral and Geocoding App
 
 Daily light integral (DLI) describes the number of photosynthetically active photons that are delivered to a specific area over a 24-hour period. This variable is particularly useful to describe the light environment of plants.
 
