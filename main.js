@@ -156,7 +156,7 @@ key:' '
 
 var selectValue=document.getElementById("opList").value;
 
-if (selectValue == "PPG1"){
+if (selectValue == ""){
 transmit = 0.75;
 } else if(selectValue == "PPG1") {
 	transmit = 0.861;
