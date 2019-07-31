@@ -1,3 +1,24 @@
+body {
+    background-image: url(8.png);
+    font-family: Arial;
+    text-align: center;
+}
+
+button {
+    background-color: #254117;
+    outline: none;
+    color:darkgreen;
+}
+
+
+.btn {
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: #254117;
+}
+
 #calculator{
     height:300px;
     width: 50%; 
@@ -58,5 +79,6 @@ form {
         margin-right: auto;
     }
 }
+
 
 
