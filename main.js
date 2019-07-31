@@ -1,225 +1,151 @@
-var locationForm = document.getElementById('location-form');
-var selectValue;
-var transmit;
-var day, inverseDist, solarDecl,latRad, sunAngle, dli, R_a,lat,lng;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>My Geocode App</title>
+</head>
+<body>
+  <body>
+
+    <div class="container" >
+      <div class="panel" id = "calculator">
+
+      <h2 class="text-center">Daily Light Integral & Geolocation calculator</h2>
+      <br>
+
+      <fieldset>
 
 
+      <form id="location-form">
+        <h5> Please enter your address (street, city, region, country):</h5>
 
-//Constants
-const k1 = (24 * 60)/Math.PI;
-const solarConstant = 0.082;
+        <input type="text" id="location-input" placeholder="310 3rd Avenue, New York, NY, USA" class="form-control form-control-lg">
+ <br>
+          <h5> Select type of cover:</h5>
 
-//Step 1.Calculate and set day of the year (1-366)
-//For example, if today is January 1st, day of the year is 1
-function setDay(){
-	var now = new Date();
-	var start = new Date(now.getFullYear(), 0, 0);
-	var difference = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-	day = Math.floor(difference / (1000 * 60 * 60 * 24));
-}
+     <select id="opList"  onChange="handleClick()" >
+       <option value = ""> </option>
+      <option value = "PPG1">Plain Type1 Plexiglass</option>
+      <option value = "PPG2">Plain Type2 Plexiglass</option>
+      <option value = "PGA1">Type1 Plexiglas with Agril sheet</option>
+      <option value = "PGA2">Type2 Plexiglas with Agril sheet</option>
+      <option value = "PGBA1">Type1 Plexiglas with Blocked Air</option>
+      <option value = "PGBA2">Type2 Plexiglas with Blocked Air</option>
+      <option value = "PGW1">Type1 Plexiglas with water flow</option>
+      <option value = "PGW2">Type2 Plexiglas with water flow</option>
+      <option value = "PPC">Plain polycarbonate</option>
+      <option value = "PCA">Polycarbonate with Agril net</option>
+      <option value = "PCP">Polycarbonate with Polyethylene sheet</option>
+      <option value = "PY1">Single layer of polyethylen</option>
+      <option value = "PY2">Double layers of polyethylene</option>
+      <option value = "PYA">Polyethylene with Agril net</option>
+      <option value = "FG1">Single layer of fiberglass</option>
+      <option value = "FG2A">Double layer of fiberglass (parallel)</option>
+      <option value = "FG2B">Double layer of fiberglass (offset)</option>
+      <option value = "FG1BA">Fiberglass 1 with blocked air</option>
+      <option value = "FG2BA">Fiberglass 2 with blocked air</option>
+      <option value = "IMA">Type 2 Impact Modified Acryllic</option>
+      <option value = "TP">Type 2 Polycarbonate (light)</option>
+      <option value = "POL">Type 2 Polycarbonate (mult-wall)</option>
+      <option value = "GS">Type 3 (rigid glass) single</option>
+      <option value = "GD">Type 3 (rigid glass) double</option>
 
-// Step 2. Calculate and set the inverse distance
+     </select>
+     <br>
+ <br>
 
-function setDistance(){
-	//first need to set day of the year
-	setDay();
+     <h5> Select day and month:</h5>
 
-	//set inverse distance
-	inverseDist = 1 + 0.033 * Math.cos(((2 * Math.PI) / 365 )* day);
+     <select id="day"  onChange="handleClick()" data-inline="true" >
+       <option value = ""> </option>
+      <option value = "1">1</option>
+      <option value = "2">2</option>
+      <option value = "3">3</option>
+      <option value = "4">4</option>
+      <option value = "5">5</option>
+      <option value = "6">6</option>
+      <option value = "7">7</option>
+      <option value = "8">8</option>
+      <option value = "9">9</option>
+      <option value = "10">10</option>
+      <option value = "11">11</option>
+      <option value = "12">12</option>
+      <option value = "13">13</option>
+      <option value = "14">14</option>
+      <option value = "15">15</option>
+      <option value = "16">16</option>
+      <option value = "17">17</option>
+      <option value = "18">18</option>
+      <option value = "19">19</option>
+      <option value = "20">20</option>
+      <option value = "21">21</option>
+      <option value = "22">22</option>
+      <option value = "23">23</option>
+      <option value = "24">24</option>
+      <option value = "25">25</option>
+      <option value = "26">26</option>
+      <option value = "27">27</option>
+      <option value = "28">28</option>
+      <option value = "29">29</option>
+      <option value = "30">30</option>
+      <option value = "31">31</option>
 
-}
+     </select>
 
-//Step 3. Calculate and set the solar declination
+     <select id="month"  onChange="handleClick()" data-inline="true">
+       <option value = ""> </option>
+      <option value = "1">January</option>
+      <option value = "2">February</option>
+      <option value = "3">March</option>
+      <option value = "4">April</option>
+      <option value = "5">May</option>
+      <option value = "6">June</option>
+      <option value = "7">July</option>
+      <option value = "8">August</option>
+      <option value = "9">September</option>
+      <option value = "10">October</option>
+      <option value = "11">November</option>
+      <option value = "12">December</option>
 
-function setSolarDec(){
+     </select>
 
-	//first need to set day of the year
-	setDay();
-
-	//set solar declination
-	solarDecl = 0.409 * Math.sin((2 * Math.PI / 365) * day - 1.39);
-}
-
-//Step 4. Calculate the latitude in Radians
-
-function setLatRad(){
-
-	//set latitude in Radians
-	latRad = (Math.PI/180) * lat;
-
-}
-
-//Step 5. Calculate the sunset hour angle
-
-function setSunAngle(){
-
-	//first need to set latitude in Radians and solar declination
-	setLatRad();
-	setSolarDec();
-
-	//set the sunset hour angle
-	sunAngle = Math.acos(-Math.tan(latRad) * Math.tan(solarDecl));
-}
-
-//Step 6. Calculate R_a, extraterrestrial irradiance
-
-function setR_a(){
-
-	//first need to compute all the variables used in calculation
-	setDistance();
-	setSunAngle();
-	setLatRad();
-	setSolarDec();
-
-	//set R_a value
-	R_a = ( (k1 * solarConstant) * inverseDist) * 
-	(sunAngle * Math.sin(latRad) * Math.sin(solarDecl)
-	+ Math.cos(latRad) * Math.cos(solarDecl) * Math.sin(sunAngle));
-	}
-
-//Final Step 7. Calculate the DLI, daily light integral
-//the function accepts transmittance value as input
-
-function findDli(t){
-
-	//first set R_a value
-	setR_a();
-
-	//set dli value
-	dli =  R_a * t * 2.04;
-
-	return dli;
-}
+     <br>
+<br>
+    <div id="dli" class="text-center" >Daily Light Integral: </div>
+    <div id="latitude" class="text-center" >Latitude of Your location: </div>
+    <div id="longitude"  class="text-center" >Longitude of Your location: </div>
+   </fieldset>
 
 
-// Listen for submit button
-locationForm.addEventListener('submit', geocode);
-
-//function that extracts latitude and longitude values from Google geocoding API
-
-function geocode(a){
-
-a.preventDefault();
-
-var location = document.getElementById('location-input').value;
-
-axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
-
-params:{
-
-address:location,
-
-//SET THE API KEY
-
-key:' '
-        }
-      })
-      .then(function(response){
-      
-        // output the full geocoding output to the console
-        console.log(response);
-
-        // Geometry
-        lat = response.data.results[0].geometry.location.lat;
-        lng = response.data.results[0].geometry.location.lng;
-        
-    
-        dli = findDli(transmit);
-        result = "Daily light integral: " + dli;
-        console.log("latitude is" + lat );
-        console.log("day number is" + day );
-        console.log("inverse distance number is" + inverseDist );
-        console.log("solar declination is" + solarDecl );
-        console.log("latitude in Radians is" + latRad );
-        console.log("sun Angle is" + sunAngle );
-        console.log("R_a is" + R_a );
-        console.log("transmittance is" + transmit);
-        console.log("dli is" + dli);
-        
-        
-       
-        
-        
-        // Output to app
-        
-        document.getElementById('dli').innerHTML = result;
-        document.getElementById('latitude').innerHTML = "Your location latitude: " + lat;
-        document.getElementById('longitude').innerHTML ="Your location longitude: " + lng;
-      })
-      .catch(function(error){
-        console.log(error);
-      });
-
-    }
-    
-    function handleClick() {
-
-var selectValue=document.getElementById("opList").value;
-
-if (selectValue == ""){
-transmit = 0.75;
-} else if(selectValue == "PPG1") {
-	transmit = 0.861;
-} else if(selectValue == "PPG2") {
-	transmit = 0.874
-} else if(selectValue == "PGA1") {
-	transmit = 0.737
-} else if(selectValue == "PGA2") {
-	transmit = 0.762
-} else if(selectValue == "PGBA1") {
-	transmit = 0.859
-} else if(selectValue == "PGBA2") {
-	transmit = 0.871
-} else if(selectValue == "PGW1") {
-	transmit = 0.395
-} else if(selectValue == "PGW2") {
-	transmit = 0.562
-} else if(selectValue == "PPC") {
-	transmit = 0.868
-} else if(selectValue == "PCA") {
-	transmit = 0.727
-} else if(selectValue == "PCP") {
-	transmit = 0.690
-} else if(selectValue == "PY1") {
-	transmit = 0.773
-} else if(selectValue == "PY2") {
-	transmit = 0.707
-} else if(selectValue == "PYA") {
-	transmit = 0.739
-} else if(selectValue == "FG1") {
-	transmit = 0.782
-} else if(selectValue == "FG2A") {
-	transmit = 0.437
-} else if(selectValue == "FG1BA") {
-	transmit = 0.342
-} else if(selectValue == "FG2BA") {
-	transmit = 0.330
-} else if(selectValue == "IMA") {
-	transmit = 0.850
-} else if(selectValue == "TP") {
-	transmit = 0.900
-} else if(selectValue == "POL") {
-	transmit = 0.800
-} else if(selectValue == "GS") {
-	transmit = 0.880
-} else if(selectValue == "GD") {
-	transmit = 0.770
-}
-
-return transmit;
-
-}
-
-function setValue() {
-    selectValue=document.getElementById("opList").value;
-}
-
-function init() {
-    var button=document.getElementById("button");
-    button.onclick=handleClick();
-}
+      <br>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+     </form>
 
 
 
 
-    
+    <div style="position: absolute; top: 0; left: 0px; width: 250px; text-align:left; " >
+    Go to: <li> <a href="https://www.agritecture.com" class ="link"> Agritecture website </a></li>
+    <li> <a href="http://www.fao.org/3/x0490e/x0490e07.htm#radiation" class ="link"> Theory behind calculations </a></li>
+    <li> <a href="https://github.com/almazhanabdukhat" class ="link"> Source on github: almazhanabdukhat </a></li>
+  </div>
+
+
+
+
+
+
+    <img src="agritecture-logo.png" alt="agritecture" />
+
+      <p id="link">  </p>
+
+      <script src="alma.js"></script>
+
+</body>
+</html>
+
