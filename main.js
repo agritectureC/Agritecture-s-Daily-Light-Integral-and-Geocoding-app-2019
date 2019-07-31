@@ -112,7 +112,7 @@ address:location,
 
 //Change the API key
 
-key:'AIzaSyAJ5rt4_6lwR_0fkENYk8i4QF83Z0NJNb4'
+key:'YOUR API KEY'
         }
       })
       .then(function(response){
