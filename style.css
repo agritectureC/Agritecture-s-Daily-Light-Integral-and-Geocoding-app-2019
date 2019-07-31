@@ -1,24 +1,3 @@
-body {
-    background-image: url(8.png);
-    font-family: Arial;
-    text-align: center;
-}
-
-button {
-    background-color: #254117;
-    outline: none;
-    color:darkgreen;
-}
-
-
-.btn {
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    background-color: #254117;
-}
-
 #calculator{
     height:300px;
     width: 50%; 
@@ -27,8 +6,8 @@ button {
 }
 img{
     position: relative;
-    top: 70px;
-    right: 20px;
+    top: 30px;
+    right: 5px;
    
 
 }
@@ -55,20 +34,21 @@ form {
     background-color: #fff;
     padding: 20px;
     color: #000;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.4);
+    box-shadow: 0 2px 4px 0 rgba(0,100,0,.4);
 }
 
 
 
 .panel {
-    margin-top: 50px;
+    margin-top: 20px;
     float: none;
-    color:#254117;
+    color: #254117;
 
 }
 .link { 
-    font-size: 12px; 
+    font-size: 14px; 
     text-decoration: none; 
+    color: #254117;
 }
 
 @media (min-width: 1000px) {
