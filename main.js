@@ -12,8 +12,8 @@ const solarConstant = 0.082;
 //For example, if today is January 1st, day of the year is 1
 function setDay(){
     
-	var userDate = new Date (2019,month,userDay);
-	var start = new Date(2019, 0, 0);
+	var userDate = new Date (2020,month,userDay);
+	var start = new Date(2020, 0, 0);
 	var difference = userDate - start;
 	day = (Math.round(difference / (1000 * 60 * 60 * 24) ));
 	
@@ -126,7 +126,7 @@ key:'YOUR KEY'
         
     
         dli = findDli(transmit);
-        result = "Daily light integral: " + dli;
+        console.log ("Daily light integral: " + dli);
         console.log("latitude is" + lat );
         console.log("day number is" + day );
         console.log("inverse distance number is" + inverseDist );
@@ -141,11 +141,15 @@ key:'YOUR KEY'
        
         
         
-        // Output to app
-        
-        document.getElementById('dli').innerHTML = result;
-        document.getElementById('latitude').innerHTML = "Your location latitude: " + lat;
-        document.getElementById('longitude').innerHTML ="Your location longitude: " + lng;
+        // Round the values to 2 decimal places
+		var result = dli.toFixed(2);
+		var latFin = parseFloat(lat).toFixed(2);
+		var lngFin = parseFloat(lng).toFixed(2);
+
+		//Output values
+        document.getElementById('dli').innerHTML = "Daily Light Integral: " + result;
+        document.getElementById('latitude').innerHTML = "Location latitude: " + latFin;
+        document.getElementById('longitude').innerHTML ="Location longitude: " + lngFin;
       })
       .catch(function(error){
         console.log(error);
@@ -160,9 +164,9 @@ key:'YOUR KEY'
 
 var selectValue=document.getElementById("opList").value;
 
-if (selectValue == "PPG1"){
-transmit = 0.75;
-} else if(selectValue == "PPG1") {
+if(selectValue == "GS") {
+	transmit = 1.0
+}else if(selectValue == "PPG1") {
 	transmit = 0.861;
 } else if(selectValue == "PPG2") {
 	transmit = 0.874
@@ -194,6 +198,8 @@ transmit = 0.75;
 	transmit = 0.782
 } else if(selectValue == "FG2A") {
 	transmit = 0.437
+} else if(selectValue == "FG2B") {
+	transmit = 0.446
 } else if(selectValue == "FG1BA") {
 	transmit = 0.342
 } else if(selectValue == "FG2BA") {
@@ -204,12 +210,9 @@ transmit = 0.75;
 	transmit = 0.900
 } else if(selectValue == "POL") {
 	transmit = 0.800
-} else if(selectValue == "GS") {
-	transmit = 0.880
 } else if(selectValue == "GD") {
-	transmit = 0.770
+	transmit = 0.88
 }
-
 //get month and day as integers
 
 month = parseInt(document.getElementById("month").value)-1;
@@ -231,6 +234,4 @@ function init() {
 }
 
 
-
-
-    
+	
